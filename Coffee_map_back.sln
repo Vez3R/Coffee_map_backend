@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Coffee_map_back", "Coffee_map_back\Coffee_map_back.pyproj", "{FC5B8DD4-B9AA-4803-97C4-B03AD6B22581}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC5B8DD4-B9AA-4803-97C4-B03AD6B22581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC5B8DD4-B9AA-4803-97C4-B03AD6B22581}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7221C443-0A59-401B-9AF9-E27AB151C27A}
+	EndGlobalSection
+EndGlobal
