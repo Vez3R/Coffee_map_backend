@@ -122,3 +122,6 @@ def login():
 def logout():
     logout_user()
     return {"session":False}
+
+if __name__ == "__main__":
+    app.run(port=8080)
