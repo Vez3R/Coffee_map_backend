@@ -1,16 +1,21 @@
 import datetime
 import json
 import uuid
+import os
 
 from flask import Flask, request, Response
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin , current_user, login_required ,login_user, logout_user
 
+db_url = os.getenv("DB_URL", "localhost")
+db_port = os.getenv("DB_PORT", "5432")
+db_login = os.getenv("DB_LOGIN", "postgres")
+db_password = os.getenv("DB_PASSWORD", "postgres")
 app = Flask(__name__)
 app.debug = True
 app.config['SECRET_KEY'] = 'long secret key'
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/postgres"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{db_login}:{db_password}@{db_url}:{db_port}/postgres"
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 
