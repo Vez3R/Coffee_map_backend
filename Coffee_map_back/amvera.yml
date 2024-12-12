@@ -2,10 +2,10 @@ meta:
   environment: python
   toolchain:
     name: pip
-    version: "3.9"
+    version: 3.9
 build:
   requirementsPath: requirements.txt
 run:
+  command: cd Coffee_map_back && python -m flask run -h 0.0.0.0 -p 8080
   persistenceMount: /data
-  containerPort: 80
-  scriptName: app.py
+  containerPort: 8080
