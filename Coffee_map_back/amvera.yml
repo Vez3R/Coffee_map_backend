@@ -8,4 +8,4 @@ build:
 run:
   persistenceMount: /data
   containerPort: 80
-  scriptName: Coffee_map_back/app.py
+  scriptName: Coffee_map_back\app.py
