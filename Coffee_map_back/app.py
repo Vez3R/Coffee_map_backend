@@ -1,4 +1,3 @@
-import datetime
 import json
 import uuid
 import os
@@ -11,7 +10,7 @@ from flask_login import LoginManager, UserMixin , current_user, login_required ,
 db_url = os.getenv("DB_URL", "localhost")
 db_port = os.getenv("DB_PORT", "5432")
 db_login = os.getenv("DB_LOGIN", "postgres")
-db_password = os.getenv("DB_PASSWORD", "postgres")
+db_password = os.getenv("DB_PASSWORD", "192837465k")
 app = Flask(__name__)
 app.debug = True
 app.config['SECRET_KEY'] = 'long secret key'
@@ -95,7 +94,6 @@ def get_cafe():
             "count":len(records),
             "result":[]
             }
-        
     for record in records:
         results["result"].append({"name":record.cafe_name,"metro":record.metro,"description":record.description,"rate":record.rate,"image":record.image_link})
 
@@ -123,7 +121,6 @@ def login():
         return {"loggin":login_user(user,remember=True)}
     
 @app.route('/logout')
-@login_required
 def logout():
     logout_user()
     return {"session":False}    
