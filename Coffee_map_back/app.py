@@ -116,9 +116,13 @@ def is_aunt():
 
 @app.route('/login', methods=['GET'])
 def login():
-    user = db.session.query(UsersModel).filter(UsersModel.login == request.args.get('login')).first()
-    if user and user.check_password(request.args.get('password')):
+    try:
+        user = db.session.query(UsersModel).filter(UsersModel.login == request.args.get('login')).first()
+        if user and user.check_password(request.args.get('password')):
+            return {"loggin":login_user(user,remember=True)}
+    finally:
         return {"loggin":login_user(user,remember=True)}
+    
     
 @app.route('/logout')
 def logout():
