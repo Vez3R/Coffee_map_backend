@@ -121,7 +121,7 @@ def login():
         if user and user.check_password(request.args.get('password')):
             return {"loggin":login_user(user,remember=True)}
     finally:
-        return {"loggin":login_user(user,remember=True)}
+        return {"loggin":False}
     
     
 @app.route('/logout')
