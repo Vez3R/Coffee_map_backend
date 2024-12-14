@@ -85,7 +85,7 @@ def start():
             "password": record.password
         } for record in records]
 
-    return json.dumps(results, default=str, indent=4)
+    return results
 
 @app.route('/cafe', methods=['GET'])
 def get_cafe():
@@ -98,7 +98,7 @@ def get_cafe():
         results["result"].append({"name":record.cafe_name,"metro":record.metro,"description":record.description,"rate":record.rate,"image":record.image_link})
 
 
-    return json.dumps(results, default=str,ensure_ascii=False, indent=4)
+    return results
     
 @app.route('/registration', methods=['POST'])
 def registration():
@@ -112,7 +112,7 @@ def registration():
 @app.route('/session', methods=['GET'])
 def is_aunt():
     result = {"session":current_user.is_authenticated}
-    return json.dumps(result, default=str,ensure_ascii=False, indent=4)
+    return result
 
 @app.route('/login', methods=['GET'])
 def login():
