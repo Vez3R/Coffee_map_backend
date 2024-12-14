@@ -10,7 +10,7 @@ from flask_login import LoginManager, UserMixin , current_user, login_required ,
 db_url = os.getenv("DB_URL", "localhost")
 db_port = os.getenv("DB_PORT", "5432")
 db_login = os.getenv("DB_LOGIN", "postgres")
-db_password = os.getenv("DB_PASSWORD", "192837465k")
+db_password = os.getenv("DB_PASSWORD", "postgres")
 app = Flask(__name__)
 app.debug = True
 app.config['SECRET_KEY'] = 'long secret key'
@@ -116,15 +116,17 @@ def is_aunt():
 
 @app.route('/login', methods=['GET'])
 def login():
-    try:
-        user = db.session.query(UsersModel).filter(UsersModel.login == request.args.get('login')).first()
-        if user and user.check_password(request.args.get('password')):
-            return {"loggin":login_user(user,remember=True)}
-    finally:
+    user = db.session.query(UsersModel).filter(UsersModel.login == request.args.get('login')).first()
+    if user and user.check_password(request.args.get('password')):
+        return {"loggin":login_user(user,remember=True)}
+    else:
         return {"loggin":False}
     
     
 @app.route('/logout')
 def logout():
     logout_user()
-    return {"session":False}    
+    return {"session":False}  
+
+if __name__ =="__main__":
+    app.run(port=8080)
