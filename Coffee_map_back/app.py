@@ -89,12 +89,9 @@ def start():
 @app.route('/cafe', methods=['GET'])
 def get_cafe():
     records = CafeModel.query.all()
-    results = {
-            "count":len(records),
-            "result":[]
-            }
+    results = []
     for record in records:
-        results["result"].append({"name":record.cafe_name,"metro":record.metro,"description":record.description,"rate":record.rate,"image":record.image_link})
+        results.append({"name":record.cafe_name,"description":record.description,"image":record.image_link})
     return results
     
 @app.route('/registration', methods=['POST'])
