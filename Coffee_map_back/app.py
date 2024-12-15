@@ -1,8 +1,7 @@
-import json
 import uuid
 import os
 
-from flask import Flask, request, Response
+from flask import Flask, render_template, request, Response, make_response
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin , current_user, login_required ,login_user, logout_user
@@ -85,42 +84,44 @@ def start():
             "password": record.password
         } for record in records]
 
-    return json.dumps(results, default=str, indent=4)
+    return results
 
 @app.route('/cafe', methods=['GET'])
 def get_cafe():
     records = CafeModel.query.all()
-    results = {
-            "count":len(records),
-            "result":[]
-            }
+    results = []
     for record in records:
-        results["result"].append({"name":record.cafe_name,"metro":record.metro,"description":record.description,"rate":record.rate,"image":record.image_link})
-
-
-    return json.dumps(results, default=str,ensure_ascii=False, indent=4)
+        results.append({"name":record.cafe_name,"description":record.description,"image":record.image_link})
+    return results
     
 @app.route('/registration', methods=['POST'])
 def registration():
-    data = request.get_json()
-    new_record = UsersModel(login=data['login'],name=data['name'])
-    new_record.set_password(data['password'])
-    db.session.add(new_record)
-    db.session.commit()
-    return {"message": "Новая запись успешно добавлена"}
+    try:
+        data = request.get_json()
+        new_record = UsersModel(login=data['login'],name=data['name'])
+        new_record.set_password(data['password'])
+        db.session.add(new_record)
+        db.session.commit()
+        return {"status": True,"message": "Новая запись успешно добавлена"}
+    except Exception as err: 
+        print(type(err).__name__)
+        return make_response("<h2>Такой логин уже есть</h2>", 404)
     
 @app.route('/session', methods=['GET'])
 def is_aunt():
     result = {"session":current_user.is_authenticated}
-    return json.dumps(result, default=str,ensure_ascii=False, indent=4)
+    return result
 
 @app.route('/login', methods=['GET'])
 def login():
-    user = db.session.query(UsersModel).filter(UsersModel.login == request.args.get('login')).first()
-    if user and user.check_password(request.args.get('password')):
-        return {"loggin":login_user(user,remember=True)}
+        user = db.session.query(UsersModel).filter(UsersModel.login == request.args.get('login')).first()
+        if user and user.check_password(request.args.get('password')):
+            return {"status":login_user(user,remember=True),"message":"Вход успешен"}
+        else:
+            return make_response("<h2>Введен неверный логин или пароль</h2>", 400)
+    
     
 @app.route('/logout')
 def logout():
     logout_user()
-    return {"session":False}    
+    return {"session":False}  
