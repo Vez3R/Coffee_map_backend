@@ -9,7 +9,7 @@ from flask_login import LoginManager, UserMixin , current_user, login_required ,
 db_url = os.getenv("DB_URL", "localhost")
 db_port = os.getenv("DB_PORT", "5432")
 db_login = os.getenv("DB_LOGIN", "postgres")
-db_password = os.getenv("DB_PASSWORD", "192837465k")
+db_password = os.getenv("DB_PASSWORD", "postgres")
 app = Flask(__name__)
 app.debug = True
 app.config['SECRET_KEY'] = 'long secret key'
@@ -95,8 +95,6 @@ def get_cafe():
             }
     for record in records:
         results["result"].append({"name":record.cafe_name,"metro":record.metro,"description":record.description,"rate":record.rate,"image":record.image_link})
-
-
     return results
     
 @app.route('/registration', methods=['POST'])
@@ -107,7 +105,7 @@ def registration():
         new_record.set_password(data['password'])
         db.session.add(new_record)
         db.session.commit()
-        return {"status": True},{"message": "Новая запись успешно добавлена"}
+        return {"status": True,"message": "Новая запись успешно добавлена"}
     except Exception as err: 
         print(type(err).__name__)
         return make_response("<h2>Такой логин уже есть</h2>", 404)
@@ -121,7 +119,7 @@ def is_aunt():
 def login():
         user = db.session.query(UsersModel).filter(UsersModel.login == request.args.get('login')).first()
         if user and user.check_password(request.args.get('password')):
-            return {"status":login_user(user,remember=True)},{"message":"Вход успешен"}
+            return {"status":login_user(user,remember=True),"message":"Вход успешен"}
         else:
             return make_response("<h2>Введен неверный логин или пароль</h2>", 400)
     
@@ -130,3 +128,6 @@ def login():
 def logout():
     logout_user()
     return {"session":False}  
+
+if __name__=="__main__":
+    app.run(port=8080,debug=True)
