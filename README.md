@@ -48,7 +48,7 @@
       
    			   POSTGRES_USER: postgres
    			   
-    			  POSTGRES_PASSWORD: 192837465k
+    			  POSTGRES_PASSWORD: *любой пароль*
   
   		coffee_map:
   
@@ -68,6 +68,6 @@
       
     			  DB_PORT: 5432
       
-      DB_LOGIN: postgres
+     			  DB_LOGIN: postgres
       
-      DB_PASSWORD: 192837465k
+      			  DB_PASSWORD: *любой пароль*
