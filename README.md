@@ -1,10 +1,10 @@
 Для развертывания необходимо:
   
- 1.Создать Dockerfile
+ 1. Создать Dockerfile
   
- 2.Создать Docker-compose.yml
+ 2. Создать Docker-compose.yml
   
- 3.Запустить команды docker build -t coffee_map . & docker-compose up -d
+ 3. Запустить команды docker build -t coffee_map . & docker-compose up -d
 
 Файл Dockerfile:
 
